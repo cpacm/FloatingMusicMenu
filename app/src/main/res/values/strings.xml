@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">musicbtn</string>
+    <string name="music_menu">播放按钮封面</string>
+    <string name="title_activity_fmm">FMMActivity</string>
+</resources>

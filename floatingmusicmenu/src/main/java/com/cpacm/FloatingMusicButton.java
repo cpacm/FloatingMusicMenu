@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
  * <p>
  *
  * @author cpacm
- * @date 2017/3/31
  * </p>
  */
 public class FloatingMusicButton extends FloatingActionButton {

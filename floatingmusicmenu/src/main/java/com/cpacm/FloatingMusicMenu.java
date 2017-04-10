@@ -50,7 +50,6 @@ import com.cpacm.floatingmusicbutton.R;
  * 可以通过调用 {@link #addButton(FloatingActionButton)} 和 {@link #removeButton(FloatingActionButton)} 来动态增减按钮数量。
  *
  * @author cpacm
- * @date 2017/03/21
  * </p>
  */
 @CoordinatorLayout.DefaultBehavior(FloatingMusicMenu.Behavior.class)

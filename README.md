@@ -1,11 +1,9 @@
 # FloatingMusicMenu
 
 一款可用于音乐播放器的悬浮菜单按钮，它是基于 `FloatingActionButton` 上完成，能够联动音乐播放器显示歌曲的进度，设置歌曲的封面和通过封面的旋转来展示播放的状态（停止或者播放）。
-
-![与音乐播放器的联动](http://upload-images.jianshu.io/upload_images/1514994-8190372cf7d17666.gif?imageMogr2/auto-orient/strip)
-
 除此之外，它可以设置一组按钮作为菜单展示，支持上下左右四个方位显示，更方便的是可以在代码中动态的添加按钮或者移除按钮。
 
+![与音乐播放器的联动](http://upload-images.jianshu.io/upload_images/1514994-8190372cf7d17666.gif?imageMogr2/auto-orient/strip)
 ![作为菜单的功能](http://upload-images.jianshu.io/upload_images/1514994-83d194a23795d0e2.gif?imageMogr2/auto-orient/strip)
 
 ## 引入

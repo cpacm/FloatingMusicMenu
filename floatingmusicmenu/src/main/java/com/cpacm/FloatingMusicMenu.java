@@ -16,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -140,7 +141,7 @@ public class FloatingMusicMenu extends ViewGroup {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                setVisibility(GONE);
+                setVisibility(INVISIBLE);
             }
         });
     }
@@ -582,11 +583,16 @@ public class FloatingMusicMenu extends ViewGroup {
         }
 
         @Override
+        public boolean onTouchEvent(CoordinatorLayout parent, FloatingMusicMenu child, MotionEvent ev) {
+            return super.onTouchEvent(parent, child, ev);
+        }
+
+        @Override
         public void onNestedScroll(CoordinatorLayout coordinatorLayout, FloatingMusicMenu child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
             super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
             if (dyConsumed > 30 && child.getVisibility() == VISIBLE) {
                 child.hide();
-            } else if (dyConsumed < -30 && child.getVisibility() == GONE) {
+            } else if (dyConsumed < -30 && child.getVisibility() == INVISIBLE) {
                 child.show();
             }
         }

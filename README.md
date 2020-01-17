@@ -3,13 +3,13 @@
 一款可用于音乐播放器的悬浮菜单按钮，它是基于 `FloatingActionButton` 上完成，能够联动音乐播放器显示歌曲的进度，设置歌曲的封面和通过封面的旋转来展示播放的状态（停止或者播放）。
 除此之外，它可以设置一组按钮作为菜单展示，支持上下左右四个方位显示，更方便的是可以在代码中动态的添加按钮或者移除按钮。
 
-![与音乐播放器的联动](http://upload-images.jianshu.io/upload_images/1514994-8190372cf7d17666.gif?imageMogr2/auto-orient/strip)
-![作为菜单的功能](http://upload-images.jianshu.io/upload_images/1514994-83d194a23795d0e2.gif?imageMogr2/auto-orient/strip)
+![与音乐播放器的联动](https://cpacmblog.oss-cn-hangzhou.aliyuncs.com/fmm_cover.png)
+![作为菜单的功能](https://cpacmblog.oss-cn-hangzhou.aliyuncs.com/fmm2.webp)
 
 ## 引入
 ```groovy
 dependencies {
-	compile 'com.cpacm:floatingmusicmenu:1.0.0'
+	compile 'com.cpacm:floatingmusicmenu:1.1.0'
 }
 ```
 ### 具体使用
@@ -26,19 +26,19 @@ dependencies {
 	app:fmm_button_interval="8dp"
 	app:fmm_floating_direction="up">
 
-	<android.support.design.widget.FloatingActionButton
-		android:id="@+id/add_fab"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/ic_add"
-		app:fabSize="mini" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:fabSize="mini" />
 
-	<android.support.design.widget.FloatingActionButton
-		android:id="@+id/sub_fab"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/ic_remove"
-		app:fabSize="mini" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sub_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove"
+            app:fabSize="mini" />
 
 </com.cpacm.FloatingMusicMenu>
 ```

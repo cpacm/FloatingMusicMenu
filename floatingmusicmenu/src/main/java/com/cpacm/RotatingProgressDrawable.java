@@ -1,12 +1,15 @@
 package com.cpacm;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,11 +21,12 @@ import android.os.Message;
 
 /**
  * <p>
- *     可旋转的进度条位图，继承自 {@link Drawable} <br>
- *     原理：利用 {@link BitmapShader} 绘制出圆形图案，周围留出空白以便绘制进度条。
+ * 可旋转的进度条位图，继承自 {@link Drawable} <br>
+ * 原理：利用 {@link BitmapShader} 绘制出圆形图案，周围留出空白以便绘制进度条。
  * </p>
  * <p>
- *     @author cpacm
+ *
+ * @author cpacm
  * </p>
  */
 public class RotatingProgressDrawable extends Drawable {
@@ -31,7 +35,7 @@ public class RotatingProgressDrawable extends Drawable {
     private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_4444;
     private static final int ROTATION_DEFAULT_SPEED = 25;
     private Paint mPaint, progressPaint;
-    private Bitmap mBitmap;
+    private Drawable drawable;
     private int mWidth;
     private float mRotation;
     private RectF rectF;
@@ -45,13 +49,14 @@ public class RotatingProgressDrawable extends Drawable {
 
     public RotatingProgressDrawable(Drawable drawable) {
         initDrawable();
-        circleBitmapFromDrawable(drawable);
+        this.drawable = drawable;
+        circleBitmapFromDrawable(this.drawable);
     }
 
-    public RotatingProgressDrawable(Bitmap bitmap) {
+    public RotatingProgressDrawable(Resources res, Bitmap bitmap) {
         initDrawable();
-        mBitmap = bitmap;
-        circleBitmap();
+        drawable = new BitmapDrawable(res, bitmap);
+        circleBitmapFromDrawable(drawable);
     }
 
     private void initDrawable() {
@@ -150,7 +155,7 @@ public class RotatingProgressDrawable extends Drawable {
     /**
      * 圆形
      */
-    private void circleBitmap() {
+    private void circleBitmap(Bitmap mBitmap) {
         BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP,
                 Shader.TileMode.CLAMP);
         mPaint = new Paint();
@@ -162,9 +167,7 @@ public class RotatingProgressDrawable extends Drawable {
     }
 
     private void circleBitmapFromDrawable(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            mBitmap = ((BitmapDrawable) drawable).getBitmap();
-        }
+        Bitmap mBitmap;
         if (drawable instanceof ColorDrawable) {
             mBitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION,
                     COLORDRAWABLE_DIMENSION, BITMAP_CONFIG);
@@ -176,7 +179,7 @@ public class RotatingProgressDrawable extends Drawable {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
 
-        circleBitmap();
+        circleBitmap(mBitmap);
     }
 
     @Override

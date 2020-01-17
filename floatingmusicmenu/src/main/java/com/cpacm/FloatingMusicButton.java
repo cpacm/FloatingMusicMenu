@@ -6,9 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
-import android.widget.ScrollView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -33,20 +33,22 @@ public class FloatingMusicButton extends FloatingActionButton {
 
     public FloatingMusicButton(Context context) {
         super(context);
+        setMaxImageSize();
     }
 
     public FloatingMusicButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setMaxImageSize();
     }
 
     public FloatingMusicButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setMaxImageSize();
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        setMaxImageSize();
     }
 
     /**
@@ -58,19 +60,23 @@ public class FloatingMusicButton extends FloatingActionButton {
             Method sizeMethod = clazz.getDeclaredMethod("getSizeDimension");
             sizeMethod.setAccessible(true);
             int size = (Integer) sizeMethod.invoke(this);
-            Field field = clazz.getDeclaredField("mMaxImageSize");
+            //set fab maxsize
+            Field field = clazz.getDeclaredField("maxImageSize");
             field.setAccessible(true);
-            field.set(this, size);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            field.setInt(this,size);
+            //get fab impl
+            Field field2 = clazz.getDeclaredField("impl");
+            field2.setAccessible(true);
+            Object o = field2.get(this);
+            //set fabimpl maxsize
+            Method maxMethod = o.getClass().getSuperclass().getDeclaredMethod("setMaxImageSize", int.class);
+            maxMethod.setAccessible(true);
+            maxMethod.invoke(o, size);
+
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException | NoSuchFieldException e) {
             e.printStackTrace();
         }
-        postInvalidate();
+        //postInvalidate();
     }
 
     /**
@@ -96,7 +102,7 @@ public class FloatingMusicButton extends FloatingActionButton {
             }
             coverDrawable.setProgress(progress);
             coverDrawable.rotate(isRotation);
-            setMaxImageSize();
+            //setMaxImageSize();
         }
     }
 
@@ -125,7 +131,7 @@ public class FloatingMusicButton extends FloatingActionButton {
     }
 
     public void setCover(Bitmap bitmap) {
-        coverDrawable = new RotatingProgressDrawable(bitmap);
+        coverDrawable = new RotatingProgressDrawable(getResources(),bitmap);
         config();
         setImageDrawable(this.coverDrawable);
         postInvalidate();
